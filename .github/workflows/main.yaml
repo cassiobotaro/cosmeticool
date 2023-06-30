@@ -1,0 +1,34 @@
+name: main
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "poetry"
+
+      - name: Install dependencies
+        shell: bash
+        run: poetry install
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Run pre-commit
+        run: poetry run pre-commit run --all-files

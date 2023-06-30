@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "cosmeticool"
+version = "0.1.0"
+description = "Cosmetic Sales package"
+authors = ["cassiobotaro <cassiobotaro@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 79
+
+
+[tool.ruff]
+select = ["E", "F", "I", "UP"]
+line-length = 79
+
+[tool.poetry.scripts]
+cosmetic_sales_analyzer = 'cosmeticool.cli:main'
